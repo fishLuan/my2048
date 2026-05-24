@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>2048 Game</title>
+    <style>
+    /* 确保游戏容器有明确的高度，且不会触发页面滚动 */
+      body {
+        touch-action: none;  /* 禁止浏览器默认的触摸滚动行为 */
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    
+      .game-container {
+        touch-action: none;  /* 禁止在游戏区域内滚动 */
+        user-select: none;   /* 禁止选中文字 */
+        -webkit-tap-highlight-color: transparent;  /* 移除移动端点击高亮 */
+      }
+    </style>
+    <link rel="stylesheet" href="./style/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <h1>2048</h1>
+        <div class="score">
+          <div class="now">
+            <span class="label">SCORE</span>
+            <span class="value">0</span>
+          </div>
+          <div class="best">
+            <span class="label">BEST</span>
+            <span class="value">0</span>
+          </div>
+        </div>
+      </nav>
+      <div class="desc">
+        <p>
+          <strong>Play 2048 Game online</strong>Join the numbers and get to the
+          <strong>2048 tile!</strong>
+        </p>
+        <button>New Game</button>
+      </div>
+      <main>
+        <div class="game-grid">
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+        </div>
+        <div class="tile-container"></div>
+      </main>
+      <footer>
+        <img src="./images/logo.png" />
+        <span>出品</span>
+      </footer>
+      <div class="mask status">
+        <div class="content">Game Over!</div>
+        <button>Try again</button>
+      </div>
+    </div>
+    <script src="./script/tile.js"></script>
+    <script src="./script/grid.js"></script>
+    <script src="./script/render.js"></script>
+    <script src="./script/listener.js"></script>
+    <script src="./script/storage.js"></script>
+    <script src="./script/manager.js"></script>
+    <script src="./script/index.js"></script>
+  </body>
+</html>
