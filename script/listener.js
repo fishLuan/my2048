@@ -112,7 +112,7 @@ function Listener({ move: moveFn, start: startFn }) {
 
   // 触摸滑动 - 只绑定到游戏区域
   let touchStartX = 0, touchStartY = 0;
-  const minDistance = 30;
+  const minDistance = 15;
   const gameGrid = document.querySelector('.game-grid');
   
   if (gameGrid) {
