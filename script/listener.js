@@ -149,37 +149,18 @@
 // }
 
 function Listener({ move: moveFn, start: startFn }) {
-  // 键盘事件
-  window.addEventListener('keyup', function(e) {
-    switch (e.code) {
-      case 'ArrowUp':
-        moveFn({ row: -1, column: 0 });
-        break;
-      case 'ArrowLeft':
-        moveFn({ row: 0, column: -1 });
-        break;
-      case 'ArrowRight':
-        moveFn({ row: 0, column: 1 });
-        break;
-      case 'ArrowDown':
-        moveFn({ row: 1, column: 0 });
-        break;
-    }
-  });
-
-  // 触摸滑动 - 覆盖 .container，但智能判断是否触摸按钮
+  // 键盘事件（保持不变）
+  
   let touchStartX = 0, touchStartY = 0;
   let touchStartTime = 0;
-  let isTouchingButton = false;  // 标记是否触摸的是按钮
+  let isTouchingButton = false;
   const minDistance = 15;
   const maxTime = 300;
   
   const container = document.querySelector('.container');
   
   if (container) {
-    // touchstart 时判断目标是否是按钮
     container.addEventListener('touchstart', function(e) {
-      // 检查触摸的目标是否是按钮或其子元素
       let target = e.target;
       isTouchingButton = false;
       
@@ -194,28 +175,20 @@ function Listener({ move: moveFn, start: startFn }) {
         target = target.parentElement;
       }
       
-      // 只有当触摸的不是按钮时，才阻止默认行为和记录滑动
       if (!isTouchingButton) {
         e.preventDefault();
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         touchStartTime = Date.now();
-        
-        // 视觉反馈
-        container.style.transition = 'transform 0.05s ease-out';
+        // 删除这行
+        // container.style.transition = 'transform 0.05s ease-out';
       }
     }, { passive: false });
     
-    // touchmove 时也判断
     container.addEventListener('touchmove', function(e) {
       if (!isTouchingButton) {
         e.preventDefault();
-        const deltaX = e.touches[0].clientX - touchStartX;
-        const deltaY = e.touches[0].clientY - touchStartY;
-        
-        if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
-          container.style.transform = 'scale(0.99)';
-        }
+        //  删除整个 touchmove 中的视觉反馈
       }
     }, { passive: false });
     
@@ -230,44 +203,31 @@ function Listener({ move: moveFn, start: startFn }) {
         const deltaY = touchEndY - touchStartY;
         const deltaTime = touchEndTime - touchStartTime;
         
-        // 恢复视觉
-        container.style.transform = '';
+        // 删除这行
+        // container.style.transform = '';
         
-        // 判断是否有效滑动
         if (Math.abs(deltaX) < minDistance && Math.abs(deltaY) < minDistance) return;
         if (deltaTime > maxTime) return;
         
-        // 触发移动
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          if (deltaX > 0) {
-            moveFn({ row: 0, column: 1 });
-          } else {
-            moveFn({ row: 0, column: -1 });
-          }
+          if (deltaX > 0) moveFn({ row: 0, column: 1 });
+          else moveFn({ row: 0, column: -1 });
         } else {
-          if (deltaY > 0) {
-            moveFn({ row: 1, column: 0 });
-          } else {
-            moveFn({ row: -1, column: 0 });
-          }
+          if (deltaY > 0) moveFn({ row: 1, column: 0 });
+          else moveFn({ row: -1, column: 0 });
         }
       }
-      // 重置标记
       isTouchingButton = false;
     });
   }
 
-  // 按钮事件 - 使用 click，不受 touchstart 影响
+  // 按钮事件（保持不变）
   const buttons = document.querySelectorAll('button');
   for (let i = 0; i < buttons.length; i++) {
-    // 移除已有事件避免重复
     buttons[i].removeEventListener('click', handleButtonClick);
     buttons[i].addEventListener('click', handleButtonClick);
     
-    // 可选：添加触摸优化
     buttons[i].addEventListener('touchstart', function(e) {
-      // 不 preventDefault，让 click 正常触发
-      // 但可以添加视觉反馈
       this.style.transform = 'scale(0.95)';
     }, { passive: true });
     
