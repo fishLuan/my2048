@@ -90,38 +90,14 @@ footer {
 
 
 
-// 按钮触摸优化
+.container {
+  touch-action: none;  // 让容器处理所有触摸，但按钮会覆盖
+}
+
+// 按钮确保可点
 button {
-  touch-action: manipulation;     // 消除移动端300ms延迟
-  pointer-events: auto;           // 确保接收触摸事件
-  position: relative;
-  z-index: 1000;                  // 提高层级
-  -webkit-tap-highlight-color: transparent;  // 移除点击高亮
-  
-  // 点击反馈效果（可选）
-  &:active {
-    transform: scale(0.95);
-    transition: transform 0.05s;
-  }
-}
-
-// 遮罩层按钮特别处理
-.mask {
-  button {
-    z-index: 1001;
-    pointer-events: auto;
-  }
-}
-
-// 游戏网格区域（确保不影响按钮）
-.game-grid {
-  pointer-events: auto;
-  touch-action: none;  // 优化滑动
-}
-
-// 确保所有按钮都有独立的触摸层
-.desc button,
-.mask button {
-  touch-action: manipulation;
+  touch-action: manipulation !important;
   pointer-events: auto !important;
+  position: relative;
+  z-index: 1000;
 }

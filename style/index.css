@@ -370,31 +370,13 @@ footer span {
   line-height: 44px;
 }
 
-button {
-  touch-action: manipulation;
-  pointer-events: auto;
-  position: relative;
-  z-index: 1000;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:active {
-  transform: scale(0.95);
-  transition: transform 0.05s;
-}
-
-.mask button {
-  z-index: 1001;
-  pointer-events: auto;
-}
-
-.game-grid {
-  pointer-events: auto;
+.container {
   touch-action: none;
 }
 
-.desc button,
-.mask button {
-  touch-action: manipulation;
+button {
+  touch-action: manipulation !important;
   pointer-events: auto !important;
+  position: relative;
+  z-index: 1000;
 }
